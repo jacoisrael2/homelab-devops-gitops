@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eurotrip
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eurotrip
+  template:
+    metadata:
+      labels:
+        app: eurotrip
+    spec:
+      containers:
+      - name: eurotrip
+        image: nginx
+        ports:
+        - containerPort: 80
+
