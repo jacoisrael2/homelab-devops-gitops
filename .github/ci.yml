@@ -1,0 +1,34 @@
+name: CI - Build and Push Eurotrip App
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "app-src/eurotrip/**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Login to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and Push Image
+        run: |
+          IMAGE=ghcr.io/jacoisrael2/eurotrip:${{ github.sha }}
+          docker build -t $IMAGE app-src/eurotrip
+          docker push $IMAGE
+
