@@ -16,5 +16,5 @@ spec:
       - name: eurotrip
         image: ghcr.io/jacoisrael2/eurotrip:latest
         ports:
-        - containerPort: 8000
+        - containerPort: 80
 
